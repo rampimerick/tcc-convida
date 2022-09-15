@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790951528409",
+    "project_id": "ufpr-convida-teste",
+    "storage_bucket": "ufpr-convida-teste.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790951528409:android:aaff5592efaf7986a23bc8",
+        "android_client_info": {
+          "package_name": "br.gov.ufpr.convida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790951528409-rshks4bp781ak7ssprajlaqr9gl64jvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy3JeAMisEgyn5JHGAryfX7yWjx7Ly-qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790951528409-rshks4bp781ak7ssprajlaqr9gl64jvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
