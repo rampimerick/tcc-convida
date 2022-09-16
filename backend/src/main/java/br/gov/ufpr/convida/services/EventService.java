@@ -287,6 +287,33 @@ public class EventService{
         return repo.findWeekType(minDate, maxDate, text, text1, text2, text3, text4, text5, text6);
     }
 
+    public List<Event> findNameWeekType(String text, String text1,String text2,String text3,String text4,String text5,String text6, String name){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    
+        Date maxDate = new Date();
+        Date minDate = new Date();
+        maxDate = new Date(maxDate.getTime() + 24 * 7 * 60 * 60 * 1000);
+        try{
+            String data = sdf.format(maxDate);
+            maxDate = sdf.parse(data);
+
+        }catch(ParseException e){
+        
+        }
+
+        minDate = new Date(minDate.getTime());
+        try{
+            String data = sdf.format(minDate);
+            minDate = sdf.parse(data);
+
+        }catch(ParseException e){
+        
+        }
+
+        return repo.findNameWeekType(minDate, maxDate, text, text1, text2, text3, text4, text5, text6, name);
+    } 
+
     public List<Event> findTodayType(String text, String text1,String text2,String text3,String text4,String text5, String text6){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -312,6 +339,33 @@ public class EventService{
         }
 
         return repo.findTodayType(minDate, maxDate, text, text1, text2, text3, text4, text5, text6);
+    }
+
+    public List<Event> findNameTodayType(String text, String text1,String text2,String text3,String text4,String text5, String text6, String name){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date minDate = new Date();
+        Date maxDate = new Date();
+
+        minDate = new Date(minDate.getTime());
+        try{
+            String data = sdf.format(minDate);
+            minDate = sdf.parse(data);
+
+        }catch(ParseException e){
+        
+        }
+        maxDate = new Date(maxDate.getTime() - 24 * 60 * 60 * 1000);
+        try{
+            String data = sdf.format(maxDate);
+            maxDate = sdf.parse(data);
+
+        }catch(ParseException e){
+        
+        }
+
+        return repo.findNameTodayType(minDate, maxDate, text, text1, text2, text3, text4, text5, text6, name);
     }
 
     public void saveConfirmedEvents(User user, Event event){

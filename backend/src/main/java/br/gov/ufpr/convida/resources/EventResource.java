@@ -270,6 +270,58 @@ public class EventResource {
         return ResponseEntity.ok().body(events);           
     }
 
+    @GetMapping(value = "/nameweektype")
+    public ResponseEntity<List<Event>> findNameWeekType(@RequestParam(value = "text", defaultValue = "") String text,
+    @RequestParam(value = "text1", defaultValue = "") String text1,
+    @RequestParam(value = "text2", defaultValue = "") String text2,
+    @RequestParam(value = "text3", defaultValue = "") String text3,
+    @RequestParam(value = "text4", defaultValue = "") String text4,
+    @RequestParam(value = "text5", defaultValue = "") String text5,
+    @RequestParam(value = "text6", defaultValue = "") String text6,
+    @RequestParam(value = "name") String name){
+            
+        text = Search.decode(text);
+        text1 = Search.decode(text1);
+        text2 = Search.decode(text2);
+        text3 = Search.decode(text3);
+        text4 = Search.decode(text4);
+        text5 = Search.decode(text5);
+        text6 = Search.decode(text6);
+        name = Search.decode(name);
+        
+     
+
+        
+        List<Event> events =  service.findNameWeekType(text, text1, text2, text3, text4, text5,text6, name);
+        return ResponseEntity.ok().body(events);           
+    }
+
+    @GetMapping(value = "/nametodaytype")
+    public ResponseEntity<List<Event>> findNameTodayType(@RequestParam(value = "text", defaultValue = "") String text,
+    @RequestParam(value = "text1", defaultValue = "") String text1,
+    @RequestParam(value = "text2", defaultValue = "") String text2,
+    @RequestParam(value = "text3", defaultValue = "") String text3,
+    @RequestParam(value = "text4", defaultValue = "") String text4,
+    @RequestParam(value = "text5", defaultValue = "") String text5,
+    @RequestParam(value = "text6", defaultValue = "") String text6,
+    @RequestParam(value = "name") String name){
+
+        
+        text = Search.decode(text);
+        text1 = Search.decode(text1);
+        text2 = Search.decode(text2);
+        text3 = Search.decode(text3);
+        text4 = Search.decode(text4);
+        text5 = Search.decode(text5);
+        text6 = Search.decode(text6);
+        name = Search.decode(name);
+        
+
+       
+        List<Event> events =  service.findNameTodayType(text, text1, text2, text3, text4, text5,text6,name);
+        return ResponseEntity.ok().body(events);           
+    }
+
     @GetMapping(value = "/todaytype")
     public ResponseEntity<List<Event>> findTodayType(@RequestParam(value = "text", defaultValue = "") String text,
     @RequestParam(value = "text1", defaultValue = "") String text1,
