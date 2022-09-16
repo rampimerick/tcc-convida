@@ -782,18 +782,18 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
               actions: <Widget>[
                 detailedEventController.validateReport() == null
                     ? FlatButton(
-                        child: new Text("Denúnciar"),
+                        child: new Text("Denunciar"),
                         onPressed: () {
                           if (token != null) {
                             detailedEventController.putReport(eventId, detailedEventController.report, context);
                           } else {
                             _showDialog("Favor logar novamente!",
-                                "Somente se você estiver logado será possível Denúnciar eventos, para isso, crie uma conta ou entre com seu login!");
+                                "Somente se você estiver logado será possível denunciar eventos, para isso, crie uma conta ou entre com seu login!");
                           }
                         },
                       )
                     : FlatButton(
-                        child: Text("Denúnciar"),
+                        child: Text("Denunciar"),
                         onPressed: null,
                       ),
                 new FlatButton(
@@ -809,7 +809,7 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
       );
     } else {
       _showDialog("Necessário estar logado!",
-          "Somente se você estiver logado será possível Denúnciar eventos, para isso, crie uma conta ou entre com seu login!");
+          "Somente se você estiver logado será possível denunciar eventos, para isso, crie uma conta ou entre com seu login!");
     }
   }
 }

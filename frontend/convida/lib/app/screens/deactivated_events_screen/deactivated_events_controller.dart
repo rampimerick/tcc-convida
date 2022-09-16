@@ -12,7 +12,7 @@ Future<List> getDeactivatedEvents(context, token) async {
   try {
     var mapHeaders = getHeaderToken(token);
     response = await http.get(Uri.parse(request), headers: mapHeaders);
-    printRequisition(request, response.statusCode, "Get Favorite Events");
+    printRequisition(request, response.statusCode, "Get deactivated Events");
 
     if ((response.statusCode == 200) || (response.statusCode == 201)) {
       return parseEvents(response.body);

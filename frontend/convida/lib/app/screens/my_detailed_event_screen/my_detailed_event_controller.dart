@@ -98,7 +98,7 @@ Future<Event> getMyEvent(eventId, context) async {
   }
 }
 
-Future<int> deleteMyEvent(eventId, context) async {
+Future<int> deleteMyEvent(String eventId, BuildContext context) async {
   final _save = FlutterSecureStorage();
   String _token = await _save.read(key: "token");
 
@@ -109,31 +109,29 @@ Future<int> deleteMyEvent(eventId, context) async {
   };
   var response;
   try {
-    response = await http.delete(Uri.parse("$_url/events/$eventId"),
-        headers: mapHeaders);
-    print("Deletando: $_url/events/$eventId");
+    response = await http.delete(Uri.parse("$_url/events/$eventId"), headers: mapHeaders);
     int statusCode = response.statusCode;
     print("StatusCode DEL:$statusCode");
-    return response.statusCode;
+
+    if (statusCode == 200) {
+      showSuccess("Evento removido com sucesso", "pop", context);
+      return statusCode;
+    } else if (statusCode == 401) {
+      showError("Erro 401", "Não autorizado, favor logar novamente", context);
+      return statusCode;
+    } else if (statusCode == 404) {
+      showError("Erro 404", "Evento ou usuário não foi encontrado", context);
+      return statusCode;
+    } else if (statusCode == 500) {
+      showError("Erro 500", "Erro no servidor, favor tente novamente mais tarde (Delete)", context);
+      return statusCode;
+    } else {
+      showError("Erro Desconhecido", "StatusCode: $statusCode", context);
+      return statusCode;
+    }
   } catch (e) {
     showError("Erro desconhecido", "Erro: $e", context);
     return 500;
   }
 }
 
-Future<String> confirmDelete(
-    BuildContext context, String eventId, String eventName) async {
-  int statusCode = await deleteMyEvent(eventId, context);
-  if (statusCode == 200) {
-     showSuccess("Evento removido com sucesso", "pop", context);
-  } else if (statusCode == 401) {
-    showError("Erro 401", "Não autorizado, favor logar novamente", context);
-  } else if (statusCode == 404) {
-    showError("Erro 404", "Evento ou usuário não foi encontrado", context);
-  } else if (statusCode == 500) {
-    showError("Erro 500",
-        "Erro no servidor, favor tente novamente mais tarde (Delete)", context);
-  } else {
-    showError("Erro Desconhecido", "StatusCode: $statusCode", context);
-  }
-}

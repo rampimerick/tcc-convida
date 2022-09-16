@@ -12,12 +12,21 @@ import 'package:convida/app/shared/global/constants.dart';
 import 'package:convida/app/shared/models/event.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
+
+
+
 class MyDetailedEventWidget extends StatefulWidget {
+
   @override
   _MyDetailedEventWidgetState createState() => _MyDetailedEventWidgetState();
+
 }
 
+
+
 class _MyDetailedEventWidgetState extends State<MyDetailedEventWidget> {
+
   final DateFormat formatter = new DateFormat.yMd("pt_BR").add_Hm();
   final DateFormat hour = new DateFormat.Hm();
   final DateFormat date = new DateFormat("d MMM yyyy", "pt_BR");
@@ -658,7 +667,7 @@ class _MyDetailedEventWidgetState extends State<MyDetailedEventWidget> {
                                         padding: const EdgeInsets.all(2.0),
                                         child: InkWell(
                                           onTap: () async {
-                                            int delete = _confirmDelete(
+                                            int delete = _confirmDelete(context,
                                                 event.id,
                                                 event.name);
                                             if (delete == 1) {
@@ -830,9 +839,9 @@ class _MyDetailedEventWidgetState extends State<MyDetailedEventWidget> {
     );
   }
 
-  int _confirmDelete(String eventId, String eventName) {
+  int _confirmDelete(BuildContext _context, String eventId, String eventName) {
     showDialog(
-      context: context,
+      context: _context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: new Text("Deletar Evento"),
@@ -843,7 +852,9 @@ class _MyDetailedEventWidgetState extends State<MyDetailedEventWidget> {
               child: new Text("Sim"),
               onPressed: () =>
               {
-                confirmDelete(context, eventId, eventName),
+                deleteMyEvent(eventId, _context),
+                Navigator.of(_context).pop()
+
               }
             ),
             new FlatButton(

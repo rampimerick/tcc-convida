@@ -179,9 +179,6 @@ public class EventService{
         return events;
     }
 
-
-
-
     public List<Report> findReports(String id){
         
         Event ne = repo.findById(id).orElse(null);

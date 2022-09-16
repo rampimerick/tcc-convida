@@ -16,7 +16,6 @@ class Occurrence {
   }
 
   Map<String, dynamic> toJson() {
-    print("chegou no toJson");
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['start'] = this.start;
     data['end'] = this.end;

@@ -71,6 +71,7 @@ public interface EventRepository extends MongoRepository<Event, String>{
     @Query("{'reported': true}")
     List<Event> findByReportsNotNull();
     
+    @Query("{'active': true}")
     List<Event> findAllByOrderByNbmrConfirmedDesc();
 
     @Query("{'active': false}")

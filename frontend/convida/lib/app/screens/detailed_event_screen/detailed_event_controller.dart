@@ -299,9 +299,17 @@ abstract class _DetailedEventControllerBase with Store {
   }
 
   openLink(String link, BuildContext context) async {
-    String url = 'http://$link';
-    if (await canLaunch(url)) {
-      await launch(url);
+    String url;
+
+    if (link.contains("https://") || link.contains("http://")) {
+      url = link;
+    } else {
+      url = "https://$link";
+    }
+
+    // if (await canLaunch(url)) {
+    if(await launch(url)){
+      print('Abrindo link');
     } else {
       showError("Impossível abrir o link",
           "Não foi possível abrir esse link: $link", context);
@@ -403,7 +411,7 @@ abstract class _DetailedEventControllerBase with Store {
     try {
       r = await http.put(Uri.parse("$_url/events/report/$idEvent"), body: body, headers: mapHeaders);
       if (r.statusCode == 200) {
-        showSuccess("Evento Denúnciado com Sucesso!", "pop", context);
+        showSuccess("Evento Denunciado com Sucesso!", "pop", context);
       } else if (r.statusCode == 401) {
         showError("Erro 401", "Não autorizado, favor logar novamente", context);
       } else if (r.statusCode == 404) {

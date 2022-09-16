@@ -3,7 +3,7 @@
 
 FROM gradle:jdk8
 
-RUN git clone https://cf7db479cee605842afe722b35a2c019afe67ee8@github.com/ufpr-convida/backend.git
+RUN git clone https://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@github.com/ufpr-convida/backend.git
 
 #RUN rm -r backend/build
 

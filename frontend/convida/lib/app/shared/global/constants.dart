@@ -3,9 +3,9 @@ library my_prj.constants;
 import 'package:flutter/material.dart';
 
 const String kAppVersion = "1.6.0";
-const String kURL = "http://192.168.100.111:8080";
+//const String kURL = "http://192.168.100.111:8080";
 //const String kURL = "http://192.168.0.106:8080";
-//const String kURL = "https://app-convida.ufpr.br";
+const String kURL = "https://app-convida.ufpr.br";
 
 //String URL = "http://192.168.0.102:8080";
 //String URL = "http://10.0.2.2:8080";
