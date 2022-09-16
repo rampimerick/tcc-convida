@@ -73,7 +73,7 @@ class _MainWidgetState extends State<MainWidget> {
     } else {
       filtersMap[type] = true;
     }
-    //print('\n$filtersMap\n\n');
+
   }
 
   Color healthColor = Colors.white;
@@ -112,7 +112,6 @@ class _MainWidgetState extends State<MainWidget> {
         final save = FlutterSecureStorage();
         final t = await save.read(key: "token");
 
-        //print("New Token: $t");
         if (t != null) {
           String success = await getUserProfile();
         }
@@ -221,7 +220,6 @@ class _MainWidgetState extends State<MainWidget> {
                       type: BottomNavigationBarType.fixed,
                       onTap: (value) {
                         switchScreen = true;
-                        //print("currentIndex: $currentIndex -- value: $value");
                         setState(() {
                           currentIndex = value;
                         });
@@ -613,7 +611,6 @@ class _MainWidgetState extends State<MainWidget> {
             onTap: () async {
               if (_token != null) {
                 String success = await getUserProfile();
-                //print(success);
               }
               //Pop Drawer:
               Navigator.of(context).pop();
@@ -695,7 +692,7 @@ class _MainWidgetState extends State<MainWidget> {
       if ((response.statusCode == 200) || (response.statusCode == 201)) {
         user = User.fromJson(jsonDecode(response.body));
         admin = user.adm;
-        //print("isAdmin: ${user.adm}");
+
       } else {
         //Comentado para que não dê erro quando o usuário entrar sem login
         // errorStatusCode(

@@ -130,7 +130,6 @@ abstract class _AlterProfileControllerBase with Store {
         profile.birth = formatter.format(parsedBirth);
       }
 
-      //print("Nome carregando: ${profile.name}");
       return true;
     } catch (e) {
       showError("Erro desconhecido", "Erro: $e", context);
@@ -154,19 +153,12 @@ abstract class _AlterProfileControllerBase with Store {
     String acJson = jsonEncode(ac);
     bool correct;
 
-    //print(acJson);
-
     try {
       correct = await http
           .put(Uri.parse("$_url/users/checkpass"), body: acJson, headers: mapHeaders)
           .then((http.Response response) {
         // final int statusCode = response.statusCode;
 
-        //print("-------------------------------------------------------");
-        //print("Request on: $_url/users/checkpass");
-        //print("Status Code: ${response.statusCode}");
-        //print("Checking User Password...");
-        //print("-------------------------------------------------------");
 
         if ((response.statusCode == 200) || (response.statusCode == 201)) {
           if (response.body == "true")
@@ -245,15 +237,8 @@ abstract class _AlterProfileControllerBase with Store {
           .then((http.Response response) {
         final int statusCode = response.statusCode;
 
-        //print("-------------------------------------------------------");
-        //print("Request on: $_url/users/$userId");
-        //print("Status Code: ${response.statusCode}");
-        //print("Putting User Alteration...");
-        //print("-------------------------------------------------------");
-        //print("JSON: $userJson");
 
         if (statusCode == 204) {
-          //print("Usuário Alterado com sucesso!");
           _save.write(key: "user", value: user.login);
           _save.write(key: "name", value: profile.name);
           _save.write(key: "email", value: profile.email);

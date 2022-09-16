@@ -43,7 +43,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
   @override
   void initState() {
     //Future Builder!
-    //print("USER: ${user.id}, ${user.login}, ${user.name}");
+
     _userGrrController.text = user.login;
 
     if (user.birth != null) {
@@ -209,7 +209,6 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                           value: isSwitchedPassword,
                                           onChanged: (value) {
                                             setState(() {
-                                              //print("Executou um setState");
                                               isSwitchedPassword = value;
                                             });
                                           }),

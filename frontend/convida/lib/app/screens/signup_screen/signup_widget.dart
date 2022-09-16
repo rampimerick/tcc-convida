@@ -240,7 +240,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                 int emailOk =
                                                     await signupController
                                                         .checkEmail();
-                                                //print("int Email OK = $emailOk");
+
 
                                                 //If grr already exist:
                                                 if (ok == 500) {

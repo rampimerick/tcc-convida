@@ -25,7 +25,6 @@ class _LoginWidgetState extends State<LoginWidget> {
     try {
       where = ModalRoute.of(context).settings.arguments as String;
     } catch (e) {
-      //print(e.toString());
     }
 
     return WillPopScope(

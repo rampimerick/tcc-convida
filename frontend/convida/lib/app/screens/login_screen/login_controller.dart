@@ -1,9 +1,6 @@
-import 'package:convida/app/shared/DAO/firebase_requisitions.dart';
 import 'package:convida/app/shared/models/login.dart';
 import 'package:convida/app/shared/models/mobx/login.dart';
 import 'package:convida/app/shared/models/user.dart';
-import 'package:convida/app/shared/util/push_nofitications.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mobx/mobx.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -35,7 +32,6 @@ abstract class _LoginControllerBase with Store {
 
   bool validadeLogin(BuildContext context) {
     String ok = validateUser();
-    //print(ok);
     if (ok != null) {
       showError("Usuário Inválido", "Favor entre com um nome de usuário válido",
           context);
@@ -73,12 +69,7 @@ abstract class _LoginControllerBase with Store {
           .post(Uri.parse("$_url/login"), body: loginJson, headers: mapHeaders)
           .then((http.Response response) async {
         final int statusCode = response.statusCode;
-        //print("BodyLogin >>> $loginJson");
-        //print("Headers >>> $mapHeaders");
-        //print("-------------------------------------------------------");
-        //print("Request on: $_url/login");
-        //print("Status Code: ${response.statusCode}");
-        //print("Posting User Login...");
+
         s = statusCode;
 
         if ((statusCode == 200) || (statusCode == 201)) {
@@ -98,8 +89,6 @@ abstract class _LoginControllerBase with Store {
 
           return statusCode;
         } else {
-          //print("Error Token");
-          //print("-------------------------------------------------------");
           return statusCode;
         }
       });
@@ -110,16 +99,13 @@ abstract class _LoginControllerBase with Store {
     final token = await _save.read(key: "token");
     final userId = await _save.read(key: "userId");
 
-    //print("TOKEN: $token");
-    //print("LOGIN: ${login.user}");
-    //print("ID: $userId");
 
     Map<String, String> mapHeadersToken = {
       "Accept": "application/json",
       "Content-Type": "application/json",
       HttpHeaders.authorizationHeader: "Bearer $token"
     };
-    //print("Buscando usuário! S = $s");
+
     if (s == 200 || s == 201) {
       try {
         //Get user:
@@ -129,16 +115,10 @@ abstract class _LoginControllerBase with Store {
                 .then((http.Response response) {
           final int statusCode = response.statusCode;
 
-          //print("-------------------------------------------------------");
-          //print("Request on: $_url/users/$userId");
-          //print("Status Code: ${response.statusCode}");
-          //print("Loading User Profile...");
-          //print("-------------------------------------------------------");
-
           if ((statusCode == 200) || (statusCode == 201)) {
             User user = User.fromJson(jsonDecode(response.body));
             if (user.name == null) {
-              ////print("---> Primeiro Login! <---");
+              ////-- Primeiro Login!
               loginStatusCode = 0;
             } else {
               _save.write(key: "name", value: user.name);

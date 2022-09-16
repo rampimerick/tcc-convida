@@ -361,7 +361,6 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                                 }).toList(),
                                 onChanged: (String newType) {
                                   setState(() {
-                                    //print("Executou um setState $newType");
                                     _currentType = newType;
                                   });
                                 },
@@ -613,7 +612,6 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
               value: alterEventController.alterEvent.online,
               onChanged: (value) {
                 setState(() {
-                  //print("Executou um setState");
                   alterEventController.alterEvent.online = value;
                 });
               }),
@@ -633,7 +631,6 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
               value: isSwitchedSubs,
               onChanged: (value) {
                 setState(() {
-                  //print("Executou um setState");
                   isSwitchedSubs = value;
                 });
               }),

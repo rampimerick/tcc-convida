@@ -162,7 +162,7 @@ abstract class _DetailedEventControllerBase with Store {
 
   Future<Event> getEvent(String eventId, context) async {
     final _save = FlutterSecureStorage();
-   // print("EventID: $eventId");
+
     String token = await _save.read(key: "token");
     final userId = await _save.read(key: "userId");
 
@@ -263,7 +263,6 @@ abstract class _DetailedEventControllerBase with Store {
           .then((http.Response response) {
         statusCodeUser = response.statusCode;
         if (statusCodeUser == 200 || statusCodeUser == 201) {
-          print("Author Sucess!");
           return User.fromJson(jsonDecode(response.body));
         } else if (statusCodeUser == 401) {
           showError(
@@ -296,8 +295,6 @@ abstract class _DetailedEventControllerBase with Store {
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyDExnKlMmmFCZMh1okr26-JFz1anYRr9HE";
     final response = await http.get(Uri.parse(url));
 
-    //print("Geocoding: ${response.statusCode}");
-    //print("Body: ${jsonDecode(response.body)}");
     return jsonDecode(response.body)['result'][0]['formatterd_address'];
   }
 
@@ -401,13 +398,11 @@ abstract class _DetailedEventControllerBase with Store {
         report: report,
         ignored: false);
     String body = json.encode(newReport.toJson());
-    print(body);
     var r;
 
     try {
       r = await http.put(Uri.parse("$_url/events/report/$idEvent"), body: body, headers: mapHeaders);
       if (r.statusCode == 200) {
-        //print("Denunciado com sucesso!!!");
         showSuccess("Evento Denúnciado com Sucesso!", "pop", context);
       } else if (r.statusCode == 401) {
         showError("Erro 401", "Não autorizado, favor logar novamente", context);

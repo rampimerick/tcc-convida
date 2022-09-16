@@ -180,7 +180,6 @@ abstract class _AlterEventControllerBase with Store {
         online: alterEvent.online);
 
     String eventJson = json.encode(p.toJson());
-    //print(eventJson);
 
     int code;
     try {
@@ -189,10 +188,8 @@ abstract class _AlterEventControllerBase with Store {
           .then((http.Response response) {
         final int statusCode = response.statusCode;
         if ((statusCode == 200) || (statusCode == 201)) {
-          //print("Put Event Success!");
           return statusCode;
         } else {
-          //print("Put Event Error: $statusCode");
           return statusCode;
         }
       });

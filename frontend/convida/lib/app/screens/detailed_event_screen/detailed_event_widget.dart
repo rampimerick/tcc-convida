@@ -89,7 +89,6 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
                       subEnd = DateTime.parse(event.endSub);
                     }
                     //!!Deletei, aqui setava as imagens e cores!!
-                    // print("problema");
 
                     return FutureBuilder(
                         future: detailedEventController.getAuthor(
@@ -634,8 +633,6 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
                                                   height: 40.0,
                                                   child: Observer(builder:
                                                       (BuildContext context) {
-                                                    print(
-                                                        "Presence: ${detailedEventController.presence}");
                                                     return RaisedButton(
                                                         onPressed: () {
                                                           if (token != null) {
@@ -693,8 +690,7 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
                                                 },
                                                 child: Observer(builder:
                                                     (BuildContext context) {
-                                                  print(detailedEventController
-                                                      .favorite);
+
                                                   return Container(
                                                       padding:
                                                           EdgeInsets.all(8.0),
@@ -730,223 +726,6 @@ class _DetailedEventWidgetState extends State<DetailedEventWidget> {
               });
         });
   }
-
-  // Future<Event> getEvent(String eventId) async {
-  //   print("EventID: $eventId");
-  //   token = await _save.read(key: "token");
-  //   final userId = await _save.read(key: "userId");
-  //
-  //   Map<String, String> mapHeaders = {
-  //     "Accept": "application/json",
-  //     "Content-Type": "application/json",
-  //     HttpHeaders.authorizationHeader: "Bearer $token"
-  //   };
-  //
-  //   //var jsonEvent;
-  //   Event e;
-  //   try {
-  //     e = await http
-  //         .get(Uri.parse("$_url/events/$eventId"))
-  //         .then((http.Response response) {
-  //       final int statusCode = response.statusCode;
-  //       if ((statusCode == 200) || (statusCode == 201)) {
-  //         return parseEvent(response.body);
-  //       } else if (statusCode == 401) {
-  //         showError(
-  //             "Erro 401", "Não autorizado, favor logar novamente", context);
-  //         return null;
-  //       } else if (statusCode == 404) {
-  //         showError("Erro 404", "Usuário não foi encontrado", context);
-  //         return null;
-  //       } else if (statusCode == 500) {
-  //         showError("Erro 500",
-  //             "Erro no servidor, favor tente novamente mais tarde", context);
-  //         return null;
-  //       } else {
-  //         showError("Erro Desconhecido", "StatusCode: $statusCode", context);
-  //         return null;
-  //       }
-  //     });
-  //   } catch (e) {
-  //     showError("Erro desconhecido", "Erro: $e", context);
-  //   }
-  //
-  //   //Trocar aqui por setPrecense. Verificando dentro do evento se a pessoa esta com a confirmacao
-  //   //de presenca
-  //   detailedEventController.checkPresence(eventId, token, context);
-  //
-  //   if (e != null) {
-  //     eventAuthor = await detailedEventController.getAuthor(e.author, context);
-  //     if (eventAuthor != null) {
-  //       var idEvent = e.id;
-  //
-  //       Bfav fv = new Bfav(grr: userId, id: idEvent);
-  //
-  //       String body = json.encode(fv.toJson());
-  //
-  //       try {
-  //         var r = await http.post(Uri.parse("$_url/users/isfav"),
-  //             body: body, headers: mapHeaders);
-  //
-  //         if (r.statusCode == 200) {
-  //           detailedEventController.setFavorite(true);
-  //         } else if ((r.statusCode == 401) || (r.statusCode == 404)) {
-  //           detailedEventController.setFavorite(false);
-  //         } else if (r.statusCode == 500) {
-  //           showError("Erro 500",
-  //               "Erro no servidor, favor tente novamente mais tarde", context);
-  //         }
-  //       } catch (e) {
-  //         showError("Erro desconhecido", "Erro: $e", context);
-  //       }
-  //
-  //       return e;
-  //     } else {
-  //       showError(
-  //           "Erro ao carregar evento",
-  //           "Infelizmente não foi possível carregar esse evento, tente novamente mais tarde",
-  //           context);
-  //       return e;
-  //     }
-  //   } else {
-  //     showError(
-  //         "Erro ao carregar evento",
-  //         "Infelizmente não foi possível carregar esse evento, tente novamente mais tarde",
-  //         context);
-  //     return e;
-  //   }
-  // }
-
-  // Future<User> getAuthor(String a) async {
-  //   int statusCodeUser;
-  //
-  //   Map<String, String> mapHeaders = {
-  //     "Accept": "application/json",
-  //     "Content-Type": "application/json",
-  //   };
-  //
-  //   User author;
-  //   try {
-  //     author = await http
-  //         .get(Uri.parse("$_url/users/$a"), headers: mapHeaders)
-  //         .then((http.Response response) {
-  //       statusCodeUser = response.statusCode;
-  //       if (statusCodeUser == 200 || statusCodeUser == 201) {
-  //         print("Author Sucess!");
-  //         return User.fromJson(jsonDecode(response.body));
-  //       } else if (statusCodeUser == 401) {
-  //         showError(
-  //             "Erro 401", "Não autorizado, favor logar novamente", context);
-  //         return null;
-  //       } else if (statusCodeUser == 404) {
-  //         showError("Erro 404", "Autor não foi encontrado", context);
-  //         return null;
-  //       } else if (statusCodeUser == 500) {
-  //         showError("Erro 500",
-  //             "Erro no servidor, favor tente novamente mais tarde", context);
-  //         return null;
-  //       } else {
-  //         showError(
-  //             "Erro Desconhecido", "StatusCode: $statusCodeUser", context);
-  //         return null;
-  //       }
-  //     });
-  //   } catch (e) {
-  //     showError("Erro desconhecido", "Erro: $e", context);
-  //     return null;
-  //   }
-  //
-  //   return author;
-  // }
-
-  // Future<String> getPlaceAddress(double lat, double lng) async {
-  //   final url =
-  //       "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyDExnKlMmmFCZMh1okr26-JFz1anYRr9HE";
-  //   final response = await http.get(Uri.parse(url));
-  //
-  //   print("Geocoding: ${response.statusCode}");
-  //   print("Body: ${jsonDecode(response.body)}");
-  //   return jsonDecode(response.body)['result'][0]['formatterd_address'];
-  // }
-
-  // openLink(String link) async {
-  //   if (await canLaunch(link)) {
-  //     await launch(link);
-  //   } else {
-  //     showError("Impossível abrir o link",
-  //         "Não foi possível abrir esse link: $link", context);
-  //   }
-  // }
-
-  // Future _putEventFav(String eventId) async {
-  //   final _save = FlutterSecureStorage();
-  //   final userId = await _save.read(key: "userId");
-  //   final _token = await _save.read(key: "token");
-  //
-  //   Map<String, String> mapHeaders = {
-  //     "Accept": "application/json",
-  //     "Content-Type": "application/json",
-  //     HttpHeaders.authorizationHeader: "Bearer $_token"
-  //   };
-  //
-  //   Bfav fv = new Bfav(grr: userId, id: eventId);
-  //   String body = json.encode(fv.toJson());
-  //
-  //   var r;
-  //
-  //   try {
-  //     r = await http.post(Uri.parse("$_url/users/fav"),
-  //         body: body, headers: mapHeaders);
-  //     if (r.statusCode == 204) {
-  //       detailedEventController.setFavorite(true);
-  //     } else if (r.statusCode == 401) {
-  //       showError("Erro 401", "Não autorizado, favor logar novamente", context);
-  //     } else if (r.statusCode == 404) {
-  //       showError("Erro 404", "Autor não foi encontrado", context);
-  //     } else if (r.statusCode == 500) {
-  //       showError("Erro 500",
-  //           "Erro no servidor, favor tente novamente mais tarde", context);
-  //     } else {
-  //       showError("Erro Desconhecido", "StatusCode: ${r.statusCode}", context);
-  //     }
-  //   } catch (e) {
-  //     showError("Erro desconhecido", "Erro: $e", context);
-  //   }
-  // }
-
-  // Future _deleteEventFav(String eventId) async {
-  //   final userId = await _save.read(key: "userId");
-  //   final _token = await _save.read(key: "token");
-  //
-  //   Map<String, String> mapHeaders = {
-  //     "Accept": "application/json",
-  //     "Content-Type": "application/json",
-  //     HttpHeaders.authorizationHeader: "Bearer $_token"
-  //   };
-  //
-  //   Bfav fv = new Bfav(grr: userId, id: eventId);
-  //   String body = json.encode(fv.toJson());
-  //   var r;
-  //
-  //   try {
-  //     r = await http.post(Uri.parse("$_url/users/rfav"),
-  //         body: body, headers: mapHeaders);
-  //     if (r.statusCode == 204) {
-  //       detailedEventController.setFavorite(false);
-  //     } else if (r.statusCode == 401) {
-  //       showError("Erro 401", "Não autorizado, favor logar novamente", context);
-  //     } else if (r.statusCode == 404) {
-  //       showError("Erro 404", "Autor não foi encontrado", context);
-  //     } else if (r.statusCode == 500) {
-  //       showError("Erro 500",
-  //           "Erro no servidor, favor tente novamente mais tarde", context);
-  //     } else {
-  //       showError("Erro Desconhecido", "StatusCode: ${r.statusCode}", context);
-  //     }
-  //   } catch (e) {
-  //     showError("Erro desconhecido", "Erro: $e", context);
-  //   }
-  // }
 
   void _showDialog(String title, String content) {
     showDialog(

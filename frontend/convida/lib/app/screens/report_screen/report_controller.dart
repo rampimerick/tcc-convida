@@ -35,12 +35,6 @@ abstract class _ReportControllerBase with Store {
     try {
       response = await http.get(Uri.parse("$_url/events/reported"), headers: mapHeaders);
 
-      //print("-------------------------------------------------------");
-      //print("Request on: $_url/users/myevents?text=$userId");
-      //print("Status Code: ${response.statusCode}");
-      //print("Loading Reported Events...");
-      //print("-------------------------------------------------------");
-
       if ((response.statusCode == 200) || (response.statusCode == 201)) {
         final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
         return parsed.map<Event>((json) => Event.fromJson(json)).toList();
