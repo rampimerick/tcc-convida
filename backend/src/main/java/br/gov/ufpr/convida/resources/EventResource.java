@@ -469,11 +469,9 @@ public class EventResource {
         users.add(newUser);
       }
       
-      if(users.isEmpty()){
-        return ResponseEntity.status(404).build();
-      }else{
-        return ResponseEntity.ok().body(users);
-      }
+   
+      return ResponseEntity.status(404).build();
+
       
     }
 
