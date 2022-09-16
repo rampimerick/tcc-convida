@@ -469,10 +469,8 @@ public class EventResource {
         users.add(newUser);
       }
       
-   
-      return ResponseEntity.status(404).build();
-
-      
+        return ResponseEntity.ok().body(users);
+     
     }
 
 

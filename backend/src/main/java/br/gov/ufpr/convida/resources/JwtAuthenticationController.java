@@ -11,16 +11,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.gov.ufpr.convida.config.JwtTokenUtil;
 import br.gov.ufpr.convida.domain.AccountCredentials;
+import br.gov.ufpr.convida.domain.JwtResponse;
 import br.gov.ufpr.convida.domain.LoginResponse;
 import br.gov.ufpr.convida.domain.User;
 import br.gov.ufpr.convida.repository.UserRepository;
