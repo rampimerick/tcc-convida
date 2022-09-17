@@ -285,10 +285,8 @@ abstract class _NewEventControllerBase with Store {
       code = await http.post(Uri.parse("$_url/events"), body: eventJson, headers: mapHeaders).then((http.Response response) {
         final int statusCode = response.statusCode;
         if ((statusCode == 200) || (statusCode == 201)) {
-          print("evento criado");
           return statusCode;
         } else {
-          print("Post Event Error: $statusCode");
           return statusCode;
         }
       });
@@ -311,8 +309,7 @@ abstract class _NewEventControllerBase with Store {
     Map<String, String> mapHeaders = {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      //HttpHeaders.authorizationHeader: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0NjQ4MzYxNTgwOSIsImV4cCI6MTgwNDM3MDc5NSwiaWF0IjoxNjQ2NjkwNzk1fQ.11jdZd9UodZ6V4BGT2GGMjTD35yY0BmJcVc-N5Pk4_A33ENuehBoNnV5ewDeUzuluPFb7uY6BEz-gSfgCM-Rcw"
-      HttpHeaders.authorizationHeader: "Bearer $_token"
+       HttpHeaders.authorizationHeader: "Bearer $_token"
     };
 
     if (isSwitchedSubs == false) {

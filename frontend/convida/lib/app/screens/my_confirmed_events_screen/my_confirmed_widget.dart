@@ -41,11 +41,9 @@ class _ConfirmedWidgetState extends State<ConfirmedWidget> {
                     future: getAllMyConfirmedEvents(context, _token, _userId),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       List<Event> confirmedEvents = snapshot.data;
-                      if (snapshot.data == null &&
-                          snapshot.connectionState != ConnectionState.done) {
+                      if (snapshot.data == null || snapshot.connectionState != ConnectionState.done) {
                         return ShimmerComponent(screen: screen);
-                      } else if (confirmedEvents.length == 0 ||
-                          confirmedEvents.length == null) {
+                      } else if (confirmedEvents.isEmpty|| confirmedEvents.length == 0) {
                         //Caso nao houver eventos!
                         return Padding(
                           padding: const EdgeInsets.only(left: 12, right: 12),
@@ -132,51 +130,51 @@ class _ConfirmedWidgetState extends State<ConfirmedWidget> {
                       //Botao Entrar
                       Container(
                           child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          (queryData.orientation == Orientation.portrait)
-                              ? Container(
-                                  height: queryData.size.height / 2.5,
-                                  width: queryData.size.width / 1.2,
-                                  child: Image.asset(
-                                    "assets/logos/logo-ufprconvida.png",
-                                    scale: 2,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              (queryData.orientation == Orientation.portrait)
+                                  ? Container(
+                                height: queryData.size.height / 2.5,
+                                width: queryData.size.width / 1.2,
+                                child: Image.asset(
+                                  "assets/logos/logo-ufprconvida.png",
+                                  scale: 2,
+                                ),
+                              )
+                                  : Container(
+                                height: queryData.size.height / 2.5,
+                                width: queryData.size.width / 2,
+                                child: Image.asset(
+                                  "assets/logos/logo-ufprconvida.png",
+                                  scale: 2,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RaisedButton(
+                                  color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
                                   ),
-                                )
-                              : Container(
-                                  height: queryData.size.height / 2.5,
-                                  width: queryData.size.width / 2,
-                                  child: Image.asset(
-                                    "assets/logos/logo-ufprconvida.png",
-                                    scale: 2,
+                                  onPressed: () async {
+                                    //Navigator.of(context).pop();
+                                    Navigator.pushNamed(context, "/login",
+                                        arguments: "fav")
+                                        .then((value) {
+                                      setState(() {});
+                                    });
+                                  },
+                                  padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
+                                  child: Text(
+                                    'Fazer Login',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
                                   ),
                                 ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RaisedButton(
-                              color: kPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
                               ),
-                              onPressed: () async {
-                                //Navigator.of(context).pop();
-                                Navigator.pushNamed(context, "/login",
-                                        arguments: "fav")
-                                    .then((value) {
-                                  setState(() {});
-                                });
-                              },
-                              padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
-                              child: Text(
-                                'Fazer Login',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                        ],
-                      )),
+                              SizedBox(height: 30),
+                            ],
+                          )),
                     ],
                   ),
                 ),
