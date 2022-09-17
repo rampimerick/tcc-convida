@@ -50,69 +50,45 @@ class _TabWidgetState extends State<TabWidget> with TickerProviderStateMixin {
                             currentIndex = value;
                           }),
                           controller: _controller,
-                        //  isScrollable: true,
+                          //  isScrollable: true,
                           tabs: [
                             Tab(
                               icon: Icon(
                                   Icons.calendar_month_outlined,
-                                  color: currentIndex == 0
-                                      ? kPrimaryColor
-                                      : Colors.grey[500],
-                                  size: currentIndex == 0
-                                      ? 24
-                                      : sizeAppBarIcon
+                                  color: Colors.grey[500],
+                                  size: sizeAppBarIcon
                               ),
                               child: Text(
                                 "Criados",
                                 style: TextStyle(
-                                    color: currentIndex == 0
-                                        ? kPrimaryColor
-                                        : Colors.grey[500],
-                                    fontSize: currentIndex == 0
-                                        ? 13.5
-                                        : 12.2),
+                                    color: Colors.grey[500],
+                                    fontSize:  12.2),
                               ),
                             ),
                             Tab(
                               icon: Icon(
                                   Icons.star_border_outlined,
-                                  color: currentIndex == 1
-                                      ? kPrimaryColor
-                                      : Colors.grey[500],
-                                  size: currentIndex == 1
-                                      ? 24
-                                      : sizeAppBarIcon
+                                  color: Colors.grey[500],
+                                  size: sizeAppBarIcon
                               ),
                               child: Text(
                                 "Favoritos",
                                 style: TextStyle(
-                                    color: currentIndex == 1
-                                        ? kPrimaryColor
-                                        : Colors.grey[500],
-                                    fontSize: currentIndex == 1
-                                        ? 13.5
-                                        : 12.2),
+                                    color:  Colors.grey[500],
+                                    fontSize: 12.2),
                               ),
                             ),
                             Tab(
                               icon: Icon(
                                   Icons.fact_check_outlined,
-                                  color: currentIndex == 2
-                                      ? kPrimaryColor
-                                      : Colors.grey[500],
-                                  size: currentIndex == 2
-                                      ? 24
-                                      : sizeAppBarIcon
+                                  color:  Colors.grey[500],
+                                  size:  sizeAppBarIcon
                               ),
                               child: Text(
                                 "Confirmados",
                                 style: TextStyle(
-                                    color: currentIndex == 2
-                                        ? kPrimaryColor
-                                        : Colors.grey[500],
-                                    fontSize: currentIndex == 2
-                                        ? 13.5
-                                        : 12.2),
+                                    color: Colors.grey[500],
+                                    fontSize:  12.2),
                               ),
                             ),
                           ],
