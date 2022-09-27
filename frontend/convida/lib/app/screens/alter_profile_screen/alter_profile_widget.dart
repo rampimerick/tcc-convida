@@ -38,12 +38,11 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
   final TextEditingController _userGrrController = new TextEditingController();
   bool isUFPR = false; //Email @ufpr
   bool isSwitchedPassword = false;
+  bool isSignup = false;
   DateTime parsedBirth;
 
   @override
   void initState() {
-    //Future Builder!
-
     _userGrrController.text = user.login;
 
     if (user.birth != null) {
@@ -55,6 +54,11 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
       user.email = user.login;
     } else {
       isUFPR = false;
+    }
+    if (user.name == null) {
+      isSignup = true;
+    } else {
+      isSignup = false;
     }
 
     super.initState();
@@ -75,7 +79,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
         } else if (snapshot.data == true) {
           return WillPopScope(
             onWillPop: () {
-              if (user.name == null) {
+              if (isSignup) {
                 return null;
               }
               if (created) {
@@ -99,7 +103,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                   ),
                   centerTitle: true,
                   title: Text(
-                    user.name == null ? "Criando Perfil" : "Perfil",
+                    isSignup ? "Criando Perfil" : "Perfil",
                     style: TextStyle(
                         color: Colors.black, //Color(secondaryColor),
                         fontSize: 24.0,
@@ -142,7 +146,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                 icon: Icons.navigate_next,
                                 initialValue: user.lastName,
                                 onChanged:
-                                    profileController.profile.changeLastName,
+                                profileController.profile.changeLastName,
                                 maxLength: 25,
                                 errorText: profileController.validadeLastName);
                           }),
@@ -162,7 +166,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                 icon: Icons.calendar_today,
                                 initialValue: profileController.profile.birth,
                                 onChanged:
-                                    profileController.profile.changeBirth,
+                                profileController.profile.changeBirth,
                                 maxLength: 10,
                                 errorText: profileController.validadeBirth);
                           }),
@@ -172,19 +176,19 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                         isUFPR
                             ? SizedBox()
                             : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Observer(builder: (_) {
-                                  return textField(
-                                      labelText: "E-mail:",
-                                      icon: Icons.email,
-                                      initialValue: user.email,
-                                      onChanged:
-                                          profileController.profile.changeEmail,
-                                      maxLength: 50,
-                                      errorText:
-                                          profileController.validadeEmail);
-                                }),
-                              ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Observer(builder: (_) {
+                            return textField(
+                                labelText: "E-mail:",
+                                icon: Icons.email,
+                                initialValue: user.email,
+                                onChanged:
+                                profileController.profile.changeEmail,
+                                maxLength: 50,
+                                errorText:
+                                profileController.validadeEmail);
+                          }),
+                        ),
 
                         //!Revisar as senhas:
                         //*Switch passwords:
@@ -209,6 +213,7 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                           value: isSwitchedPassword,
                                           onChanged: (value) {
                                             setState(() {
+                                              //print("Executou um setState");
                                               isSwitchedPassword = value;
                                             });
                                           }),
@@ -232,7 +237,6 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                       profileController.validadePassword);
                             }),
                           ),
-
                           //New Passwaord Implementation:
                           /*//Switch on:
                               ? Container(
@@ -252,7 +256,6 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                                   .validadePassword);
                                         }),
                                       ),
-
                                       //New Password:
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -267,7 +270,6 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                                   .validadeNewPassword);
                                         }),
                                       ),
-
                                       //Confirm New Password:
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -287,7 +289,6 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                     ],
                                   ),
                                 )
-
                               //Switch off:
                               //Just the Password:
                               :  */
@@ -303,82 +304,102 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
                                 Observer(builder: (_) {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: RaisedButton(
-                                      color: kPrimaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(24),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(20)),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 40, vertical: 10),
                                       ),
                                       onPressed: profileController.loading
                                           ? null
                                           : () async {
-                                              //*Arrumar data:
-                                              DateTime dateUser =
-                                                  DateFormat("dd/MM/yyyy")
-                                                      .parse(profileController
-                                                          .profile.birth);
-                                              String datePost =
-                                                  postFormat.format(dateUser);
+                                        //*Arrumar data:
+                                        DateTime dateUser =
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(profileController
+                                            .profile.birth);
+                                        String datePost =
+                                        postFormat.format(dateUser);
 
-                                              if (created) {
-                                                Navigator.of(context)
-                                                    .pushReplacementNamed(
-                                                        "/main");
-                                              } else if ((user.name ==
-                                                      profileController
-                                                          .profile.name) &&
-                                                  (user.lastName ==
-                                                      profileController
-                                                          .profile.lastName) &&
-                                                  (user.email ==
-                                                      profileController
-                                                          .profile.email) &&
-                                                  (user.birth == datePost) &&
-                                                  (isSwitchedPassword ==
-                                                      false)) {
-                                                String error = "Sem Alterações";
-                                                String desc =
-                                                    "Não foi nada alterado";
-                                                showError(error, desc, context);
-                                              }
+                                        if (created) {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                              "/main");
+                                        } else if ((user.name ==
+                                            profileController
+                                                .profile.name) &&
+                                            (user.lastName ==
+                                                profileController
+                                                    .profile.lastName) &&
+                                            (user.email ==
+                                                profileController
+                                                    .profile.email) &&
+                                            (user.birth == datePost) &&
+                                            (isSwitchedPassword ==
+                                                false)) {
+                                          String error = "Sem Alterações";
+                                          String desc =
+                                              "Não foi nada alterado";
+                                          showError(error, desc, context);
+                                        }
 
-                                              //!Corrigir
-                                              else if (created == false) {
-                                                bool ok = profileController
-                                                    .checkAll(context);
-                                                if (ok) {
-                                                  int statusCode =
-                                                      await profileController
-                                                          .putUser(
-                                                              isSwitch:
-                                                                  isSwitchedPassword,
-                                                              user: user,
-                                                              dateUser:
-                                                                  datePost,
-                                                              context: context);
-                                                  if ((statusCode == 200) ||
-                                                      (statusCode == 204)) {
-                                                    showSuccess(
-                                                        "Usuário Alterado com sucesso!",
-                                                        "/main",
-                                                        context);
-                                                    created = true;
-                                                  } else {
-                                                    errorStatusCode(
-                                                        statusCode,
-                                                        context,
-                                                        "Erro ao alterar Usuário");
-                                                  }
-                                                } else {
-                                                  //!Corrigir!
-                                                }
-                                              }
-                                            },
-                                      padding:
-                                          EdgeInsets.fromLTRB(43, 12, 43, 12),
+                                        //!Corrigir
+                                        else if (created == false) {
+                                          bool ok = profileController
+                                              .checkAll(context);
+                                          if (ok) {
+                                            int statusCode;
+                                            if (isSignup) {
+                                              statusCode =
+                                              await profileController
+                                                  .postNewUser(
+                                                  user: user,
+                                                  dateUser:
+                                                  datePost,
+                                                  context:
+                                                  context);
+                                            } else {
+                                              statusCode =
+                                              await profileController
+                                                  .putUser(
+                                                  isSwitch:
+                                                  isSwitchedPassword,
+                                                  user: user,
+                                                  dateUser:
+                                                  datePost,
+                                                  context:
+                                                  context);
+                                            }
+
+                                            if ((statusCode == 200) ||
+                                                (statusCode == 204) ||
+                                                (statusCode == 201)) {
+                                              showSuccess(
+                                                  isSignup
+                                                      ? "Usuário Criado com sucesso!"
+                                                      : "Usuário Alterado com sucesso!",
+                                                  isSignup
+                                                      ? "/login"
+                                                      : "/main",
+                                                  context);
+                                              created = true;
+                                            } else {
+                                              errorStatusCode(
+                                                  statusCode,
+                                                  context,
+                                                  isSignup
+                                                      ? "Erro ao cadastrar Usuário"
+                                                      : "Erro ao alterar Usuário");
+                                            }
+                                          } else {
+                                            //!Corrigir!
+                                          }
+                                        }
+                                      },
                                       child: Text(
-                                          user.name == null
-                                              ? "Cadastrar"
-                                              : "Alterar",
+                                          isSignup ? "Cadastrar" : "Alterar",
                                           //Color(primaryColor),(secondaryColor)
                                           style: TextStyle(
                                               color: Colors.white,
@@ -426,12 +447,12 @@ class _AlterProfileWidgetState extends State<AlterProfileWidget> {
         readOnly: true,
         enabled: false,
         controller: _userGrrController,
-        //autovalidate: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         maxLength: 50,
         decoration: InputDecoration(
           isDense: true,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 11.0, horizontal: 20.0),
+          EdgeInsets.symmetric(vertical: 11.0, horizontal: 20.0),
           labelText: isUFPR ? "E-mail @ufpr" : "CPF:",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
           //icon: Icon(Icons.navigate_next, color: Colors.grey[400]),

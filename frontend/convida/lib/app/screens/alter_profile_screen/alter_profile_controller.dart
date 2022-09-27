@@ -4,11 +4,11 @@ import 'package:convida/app/shared/models/login.dart';
 import 'package:convida/app/shared/models/mobx/profile.dart';
 import 'package:convida/app/shared/models/user.dart';
 import 'package:convida/app/shared/util/dialogs_widget.dart';
+import 'package:convida/app/shared/util/uri_utils.dart';
 import 'package:convida/app/shared/validations/user_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:convida/app/shared/global/constants.dart';
 import 'package:intl/intl.dart';
 
 import 'package:mobx/mobx.dart';
@@ -19,7 +19,6 @@ class AlterProfileController = _AlterProfileControllerBase
 
 abstract class _AlterProfileControllerBase with Store {
   var profile = Profile();
-  String _url = kURL;
 
   @observable
   bool loading = false;
@@ -130,6 +129,7 @@ abstract class _AlterProfileControllerBase with Store {
         profile.birth = formatter.format(parsedBirth);
       }
 
+      //print("Nome carregando: ${profile.name}");
       return true;
     } catch (e) {
       showError("Erro desconhecido", "Erro: $e", context);
@@ -153,12 +153,19 @@ abstract class _AlterProfileControllerBase with Store {
     String acJson = jsonEncode(ac);
     bool correct;
 
+    final _uri = buildUri("/users/checkpass");
+
     try {
       correct = await http
-          .put(Uri.parse("$_url/users/checkpass"), body: acJson, headers: mapHeaders)
+          .put(_uri, body: acJson, headers: mapHeaders)
           .then((http.Response response) {
         // final int statusCode = response.statusCode;
 
+        //print("-------------------------------------------------------");
+        //print("Request on: $_url/users/checkpass");
+        //print("Status Code: ${response.statusCode}");
+        //print("Checking User Password...");
+        //print("-------------------------------------------------------");
 
         if ((response.statusCode == 200) || (response.statusCode == 201)) {
           if (response.body == "true")
@@ -199,6 +206,7 @@ abstract class _AlterProfileControllerBase with Store {
 
   Future<int> putUser(
       {bool isSwitch, User user, String dateUser, BuildContext context}) async {
+    loading = true;
     final _save = FlutterSecureStorage();
     final _token = await _save.read(key: "token");
     final userId = await _save.read(key: "userId");
@@ -230,15 +238,23 @@ abstract class _AlterProfileControllerBase with Store {
     };
 
     int code;
+    final _uri = buildUri("/users/$userId");
 
     try {
       code = await http
-          .put(Uri.parse("$_url/users/$userId"), body: userJson, headers: mapHeaders)
+          .put(_uri, body: userJson, headers: mapHeaders)
           .then((http.Response response) {
         final int statusCode = response.statusCode;
 
+        //print("-------------------------------------------------------");
+        //print("Request on: $_url/users/$userId");
+        //print("Status Code: ${response.statusCode}");
+        //print("Putting User Alteration...");
+        //print("-------------------------------------------------------");
+        //print("JSON: $userJson");
 
         if (statusCode == 204) {
+          //print("Usuário Alterado com sucesso!");
           _save.write(key: "user", value: user.login);
           _save.write(key: "name", value: profile.name);
           _save.write(key: "email", value: profile.email);
@@ -250,6 +266,47 @@ abstract class _AlterProfileControllerBase with Store {
       });
     } catch (e) {
       showError("Erro desconhecido", "Erro: $e", context);
+    }
+    loading = false;
+    return code;
+  }
+
+  Future<int> postNewUser(
+      {User user, String dateUser, BuildContext context}) async {
+    loading = true;
+    final _save = FlutterSecureStorage();
+    User u = new User(
+        login: user.login,
+        name: profile.name,
+        lastName: profile.lastName,
+        password: '12345',
+        email: profile.email,
+        birth: dateUser);
+
+    String userJson = json.encode(u.toJson());
+    print(userJson);
+    Map<String, String> mapHeaders = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    int code;
+
+    Uri _uri = buildUri("/users");
+    String _token = await _save.read(key: "token");
+    try {
+      code = await http
+          .post(_uri, body: userJson, headers: mapHeaders)
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+        if ((statusCode == 200) || (statusCode == 201)) {
+          return statusCode;
+        } else {
+          //print("Post User Error: $statusCode");
+          return statusCode;
+        }
+      });
+    } catch (e) {
+      showError("Erro desconhecido capturado", "Erro: $e", context);
     }
     loading = false;
     return code;

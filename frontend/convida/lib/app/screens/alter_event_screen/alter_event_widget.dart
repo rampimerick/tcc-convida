@@ -436,11 +436,18 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                   children: <Widget>[
                     Container(
                       width: 200,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
                         ),
-                        padding: EdgeInsets.all(12),
+                      // child: RaisedButton(
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(24),
+                      //   ),
+                      //   padding: EdgeInsets.all(12),
                         onPressed: alterEventController.loading
                             ? null
                             : () async {
@@ -489,7 +496,7 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                                   }
                                 }
                               },
-                        color: kPrimaryColor,
+                       // color: kPrimaryColor,
                         child: Text(
                           "Alterar",
                           style: TextStyle(color: Colors.white, fontSize: 17.0),
@@ -542,16 +549,23 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
                         ),
+                      // child: RaisedButton(
+                      //   color: kPrimaryColor,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(24),
+                      //   ),
                         onPressed: () async {
                           Navigator.pop(context);
                           Navigator.of(context).pushNamed("/login");
                         },
-                        padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
+                        //padding: EdgeInsets.fromLTRB(60, 12, 60, 12),
                         child: Text('Fazer Login',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18)),
@@ -559,17 +573,24 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                      // child: RaisedButton(
+                      //   color: kPrimaryColor,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(24),
+                      //   ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
                         ),
                         onPressed: () {
                           //When press Signup:
                           Navigator.pop(context);
                           Navigator.of(context).pushNamed("/signup");
                         },
-                        padding: EdgeInsets.fromLTRB(43, 12, 43, 12),
+                        //padding: EdgeInsets.fromLTRB(43, 12, 43, 12),
                         child: Text('Fazer Cadastro',
                             //Color(primaryColor),(secondaryColor)
                             style:
@@ -577,16 +598,23 @@ class _AlterEventWidgetState extends State<AlterEventWidget> {
                       ),
                     ),
                     SizedBox(height: 50),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                    // RaisedButton(
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(24),
+                    //   ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                       ),
-                      padding: EdgeInsets.all(12),
+                    //  padding: EdgeInsets.all(12),
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.of(context).pushNamed("/main");
                       },
-                      color: kPrimaryColor,
+                      //color: kPrimaryColor,
                       child: Text(
                         "Voltar",
                         style: TextStyle(color: Colors.white, fontSize: 17.0),
